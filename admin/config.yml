@@ -1,0 +1,19 @@
+backend:
+  name: github
+  repo: https://github.com/timeintime/yagmur-store # Burayı kendi GitHub kullanıcı adın ve depo adınla değiştirmelisin!
+  branch: main
+
+media_folder: "img"
+public_folder: "img"
+
+collections:
+  - name: "products"
+    label: "Ürünler"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Ürün Adı", name: "title", widget: "string"}
+      - {label: "Fiyat (Sadece rakam)", name: "price", widget: "number"}
+      - {label: "Ürün Fotoğrafı", name: "image", widget: "image"}
+      - {label: "Satın Alma / Trendyol Linki", name: "link", widget: "string"}
