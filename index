@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yağmur Store</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/netlify-cms@^2.10.19/dist/netlify-cms.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f9f9f9; color: #333; }
+        header { background: #fff; padding: 20px; text-align: center; border-bottom: 1px solid #eaeaea; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .logo-img { max-height: 90px; width: auto; border-radius: 50%; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        h1.section-title { text-align: center; margin-bottom: 30px; font-size: 24px; color: #1a252f; letter-spacing: 1px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+        .product-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; justify-content: space-between; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .product-image { width: 100%; height: 280px; object-fit: cover; background: #f1f1f1; }
+        .product-info { padding: 15px; text-align: center; }
+        .product-title { font-size: 16px; font-weight: 600; margin-bottom: 10px; color: #2c3e50; height: 44px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .product-price { font-size: 18px; font-weight: 700; color: #d35400; margin-bottom: 15px; }
+        .btn { display: inline-block; width: 100%; padding: 10px 0; background: #111; color: #fff; text-decoration: none; border-radius: 6px; font-weight: 600; transition: background 0.2s; }
+        .btn:hover { background: #333; }
+        footer { text-align: center; padding: 40px; color: #7f8c8d; font-size: 14px; border-top: 1px solid #eaeaea; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="Yağmur Store Logo" class="logo-img">
+    </header>
+
+    <div class="container">
+        <h1 class="section-title">Koleksiyonumuz</h1>
+        <div id="product-list" class="product-grid">
+            <!-- Ürünler otomatik buraya gelecek -->
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Yağmur Store - Tüm Hakları Saklıdır.
+    </footer>
+
+    <!-- Ürünleri otomatik çeken betik -->
+    <script>
+        fetch('products.json')
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = '';
+                data.forEach(product => {
+                    productList.innerHTML += `
+                        <div class="product-card">
+                            <div>
+                                <img src="${product.image}" alt="${product.title}" class="product-image">
+                                <div class="product-info">
+                                    <h2 class="product-title">${product.title}</h2>
+                                    <div class="product-price">${product.price} TL</div>
+                                </div>
+                            </div>
+                            <div style="padding: 0 15px 15px 15px;">
+                                <a href="${product.link}" target="_blank" class="btn">İncele / Satın Al</a>
+                            </div>
+                        </div>
+                    `;
+                });
+            })
+            .catch(err => {
+                document.getElementById('product-list').innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Henüz ürün eklenmedi veya yükleniyor...</p>';
+            });
+    </script>
+</body>
+</html>
